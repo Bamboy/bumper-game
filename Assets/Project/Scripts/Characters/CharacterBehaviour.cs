@@ -7,6 +7,26 @@ namespace Excelsion.Characters
 	[RequireComponent(typeof(Rigidbody2D))]
 	public abstract class CharacterBehaviour : MonoBehaviour 
 	{
+		private float stunTime = 0.0f;
+		//Accessors
+		public Vector2 Position
+		{
+			get{ return new Vector2( transform.position.x, transform.position.y ); }
+			set{ 
+				Vector3 newPos = new Vector3( value.x, value.y, transform.position.z );
+				transform.position = newPos;
+			}
+		}
+		public bool isStunned
+		{ get{ return (stunTime > 0.0f); } }
+
+
+		protected virtual void Update()
+		{
+			if( isStunned )
+				stunTime -= Time.deltaTime;
+		}
+
 		protected float zSpeed = 0.0f;
 		//protected virtual void Update()
 		//{
@@ -47,7 +67,7 @@ namespace Excelsion.Characters
 			CharacterBehaviour unit = col.gameObject.GetComponent< CharacterBehaviour >();
 			if( unit != null )
 			{
-				this.OnHitCharacter( unit );
+				this.OnHitCharacter( unit, col );
 			}
 			else
 			{
@@ -57,8 +77,11 @@ namespace Excelsion.Characters
 		}
 	
 		//What we do when we make physical contact with another character
-		protected virtual void OnHitCharacter( CharacterBehaviour unit )
+		protected virtual void OnHitCharacter( CharacterBehaviour unit, Collision2D col )
 		{
+			unit.Stun( 0.2f );
+			unit.AddForce( col.relativeVelocity * 0.4f );
+			
 			unit.OnCharacterCollision( this as CharacterBehaviour );
 		}
 
@@ -66,6 +89,15 @@ namespace Excelsion.Characters
 		public virtual void OnCharacterCollision( CharacterBehaviour other )
 		{
 			return;
+		}
+
+		public virtual void Stun( float duration )
+		{
+			stunTime = duration;
+		}
+		public virtual void AddForce( Vector2 force )
+		{
+			rigidbody2D.AddForce( force, ForceMode2D.Impulse );
 		}
 
 

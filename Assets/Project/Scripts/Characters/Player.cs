@@ -48,7 +48,7 @@ namespace Excelsion.Characters
 			yield return new WaitForSeconds( time );
 			transform.position = respawnPos;
 			inputEnabled = true;
-			rigidbody2D.isKinematic = false;
+			rigidbody2D.velocity = Vector2.zero;
 			zSpeed = 0.0f;
 			Debug.Log("Respawned!");
 		}

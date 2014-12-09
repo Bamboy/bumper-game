@@ -42,7 +42,7 @@ public class VectorExtras : System.Object
 	}
 
 	//A helper function for getting the speed multiplier needed to make 'defaultLength' equal 'duration'.
-	//Mainly intended for animations as you can only change the playback speed by using multiplers and not the time in seconds.
+	//Mainly intended for animations as you can only change the playback speed by using multipliers and not the time in seconds.
 	public static float GetDurationMultiplier( float defaultLength, float duration )
 	{
 		return defaultLength / duration;
