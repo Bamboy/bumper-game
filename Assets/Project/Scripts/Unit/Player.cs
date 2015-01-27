@@ -34,10 +34,10 @@ namespace Excelsion.Unit
 			base.Update();
 
 
-			if( inControl )
-			{
-				velocity = new Vector2( Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") );
-			}
+			//if( inControl )
+			//{
+				inputVelocity = new Vector2( Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") );
+			//}
 		}
 
 		public override void OnOutOfBounds()
