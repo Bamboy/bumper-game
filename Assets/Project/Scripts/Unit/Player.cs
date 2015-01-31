@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Excelsion.Unit
 {
-	public class Player : Unit
+	public class Player : UnitDamagable
 	{
 		public static Player instance;
 		#region Skills
@@ -23,10 +23,12 @@ namespace Excelsion.Unit
 
 		public override void Start () 
 		{
-			stats = new Stats( 1, 1, 2, 3 ); //The default player stats.
+			stats = new Stats( 1, 1, 2, 1, 3 ); //The default player stats.
 			LIVES = 3;
 			SKILL = 0;
 			instance = this;
+			defaultDrag = rigidbody2D.drag;
+			Health = stats.VIT;
 		}
 
 		public override void Update ()
@@ -34,29 +36,27 @@ namespace Excelsion.Unit
 			base.Update();
 
 
-			//if( inControl )
-			//{
-				inputVelocity = new Vector2( Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") );
-			//}
+			inputVelocity = new Vector2( Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") );
 		}
 
 		public override void OnOutOfBounds()
 		{
-			if( (LIVES - 1) <= 0 )
+			/*if( (LIVES - 1) <= 0 )
 			{
 				Main.instance.Lose ();
 			}
 			else
 			{
 				Respawn();
-			}
+			} */
 
-
+			Respawn();
 		}
 		public void Respawn()
 		{
 			transform.position = new Vector3(0,0,0);
 			LIVES -= 1;
+			Health = stats.VIT;
 		}
 
 

@@ -3,7 +3,7 @@ using System.Collections;
 
 ///////////////////////////////////
 /// By: Stephan "Bamboy" Ennen ////
-/// Last Updated: 11/20/14     ////
+/// Last Updated: 1/31/15      ////
 ///////////////////////////////////
 
 //This script just holds general functions we might want to use in our other scripts.
@@ -75,6 +75,14 @@ public class VectorExtras : System.Object
 	public static Vector3 SignV3( Vector3 v3 )
 	{
 		return new Vector3( Mathf.Sign( v3.x ), Mathf.Sign(v3.y), Mathf.Sign(v3.z) );
+	}
+	public static Vector2 CreateVector2( float v )
+	{
+		return new Vector2( v, v );
+	}
+	public static Vector2 CreateVector3( float v )
+	{
+		return new Vector3( v, v, v );
 	}
 	
 	//===========================================
