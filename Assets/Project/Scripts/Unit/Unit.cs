@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Excelsion.Unit
+namespace Excelsion.Units
 {
 	[RequireComponent( typeof(Collider2D), typeof(Rigidbody2D) )]
 	public abstract class Unit : MonoBehaviour 
@@ -64,6 +64,7 @@ namespace Excelsion.Unit
 		{
 			KnockbackUpdate();
 			rigidbody2D.AddForce( inputVelocity * inputControlScale * (1.5f + (float)stats.SPD) * rigidbody2D.mass, ForceMode2D.Force );
+			inputVelocity = Vector2.zero;
 		}
 		public void LateUpdate()
 		{

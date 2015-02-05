@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Excelsion.Unit;
+using Excelsion.Units;
 
 [RequireComponent( typeof(Rigidbody2D), typeof(Collider2D) )]
 public class Level : MonoBehaviour 

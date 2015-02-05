@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Excelsion.Unit
+namespace Excelsion.Units
 {
 	public class TestDummy : Unit 
 	{

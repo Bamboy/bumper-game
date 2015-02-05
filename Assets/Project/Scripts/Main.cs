@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Excelsion.Unit;
+using Excelsion.Units;
 public class Main : MonoBehaviour 
 {
 	public static Main instance;
+	public static GameObject player;
 	public AnimationCurve unitRecovery;
 	void Awake()
 	{
 		instance = this;
+		player = GameObject.FindGameObjectWithTag("Player");
 		Unit.recoveryCurve = unitRecovery;
 	}
 
