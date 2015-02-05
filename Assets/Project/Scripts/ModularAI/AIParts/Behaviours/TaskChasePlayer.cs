@@ -1,19 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Excelsion.Units;
+
 namespace Excelsion.ModularAI.Tasks
 {
 	public class TaskChasePlayer : EntityAIBase 
 	{
-		private Unit myUnit;
-		private GameObject gameObject;
 
 		//Constructor
-		public TaskChasePlayer( GameObject myGameObject )
+		public TaskChasePlayer( EntityLiving owner ) : base(owner)
 		{
-			gameObject = myGameObject;
-			myUnit = gameObject.GetComponent< Unit >();
-			this.MutexBits = 2;
+			this.MutexBits = 1;
 		}
 
 		//Should we start executing?
@@ -25,8 +22,8 @@ namespace Excelsion.ModularAI.Tasks
 		//Actually start execution
 		public override void StartExecuting()
 		{
-			gameObject.renderer.material.color = Color.yellow;
-			myUnit.inputVelocity = VectorExtras.Direction( gameObject.transform.position, Main.player.transform.position ) * 20.0f;
+			parent.gameObject.renderer.material.color = Color.yellow;
+			parent.InputVelocity = VectorExtras.Direction( parent.transform.position, Main.player.transform.position );
 		}
 		//Should we stop executing?
 		public override bool ContinueExecuting()
@@ -37,24 +34,24 @@ namespace Excelsion.ModularAI.Tasks
 		//This is basically our Update() function.
 		public override void UpdateTask()
 		{
-			myUnit.inputVelocity = VectorExtras.Direction( gameObject.transform.position, Main.player.transform.position ) * 20.0f;
-			if( Vector2.Distance( gameObject.transform.position, Main.player.transform.position ) <= 0.125f )
+			parent.InputVelocity = VectorExtras.Direction( parent.transform.position, Main.player.transform.position ) * 5.0f;
+			if( Vector2.Distance( parent.gameObject.transform.position, Main.player.transform.position ) <= 0.425f )
 			{
-				gameObject.renderer.material.color = Color.green;
-				gameObject.rigidbody2D.mass = 5.0f;
+				parent.gameObject.renderer.material.color = Color.green;
+				parent.rigidbody2D.mass = 4.0f;
 			}
 			else
 			{
-				gameObject.renderer.material.color = Color.yellow;
-				gameObject.rigidbody2D.mass = 2.0f;
+				parent.gameObject.renderer.material.color = Color.yellow;
+				parent.rigidbody2D.mass = 2.0f;
 			}
 		}
 
 		//This is called when our task is stopped
 		public override void ResetTask()
 		{
-			gameObject.rigidbody2D.mass = 2.0f;
-			gameObject.renderer.material.color = Color.blue;
+			parent.rigidbody2D.mass = 2.0f;
+			parent.gameObject.renderer.material.color = Color.blue;
 		}
 
 		//Can this task be stopped externally?

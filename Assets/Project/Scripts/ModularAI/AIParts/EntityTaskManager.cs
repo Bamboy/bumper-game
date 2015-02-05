@@ -97,14 +97,24 @@ namespace Excelsion.ModularAI
 				}
 			}
 
+			//Tell new tasks to start executing.
 			for(int n = 0; n < newTasks.Count; n++) //n for new
 			{
 				newTasks[n].action.StartExecuting();
 			}
 
+			//Execute main task(s)
 			for(int u = 0; u < executingTasks.Count; u++) //u for update
 			{
 				executingTasks[u].action.UpdateTask();
+			}
+
+			//Execute idle tasks
+			for(int i = 0; i < tasks.Count; i++) //i for idle
+			{
+				if( executingTasks.Contains( tasks[i] ) )
+					continue;
+				tasks[i].action.UpdateIdle();
 			}
 		}
 

@@ -8,9 +8,9 @@ namespace Excelsion.ModularAI.Tasks
 	{
 		protected EntityCreature taskOwner;
 
-		public TaskAITargetBase( EntityCreature owner )
+		public TaskAITargetBase( EntityLiving owner ) : base(owner)
 		{
-			taskOwner = owner;
+			//taskOwner = owner;
 		}
 
 	}

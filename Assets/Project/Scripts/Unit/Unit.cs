@@ -12,7 +12,7 @@ namespace Excelsion.Units
 		public Vector2 inputVelocity;
 		public float inputControlScale;
 
-		internal float defaultDrag;
+		protected float defaultDrag;
 		private Vector2 _lastVelocity;
 
 		//public bool inFullControl { get{ return recoveryTime <= 0.0f; } }

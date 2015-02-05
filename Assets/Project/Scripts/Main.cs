@@ -5,6 +5,7 @@ public class Main : MonoBehaviour
 {
 	public static Main instance;
 	public static GameObject player;
+	public static float maxVelocity = 10.0f;
 	public AnimationCurve unitRecovery;
 	void Awake()
 	{
@@ -12,6 +13,23 @@ public class Main : MonoBehaviour
 		player = GameObject.FindGameObjectWithTag("Player");
 		Unit.recoveryCurve = unitRecovery;
 	}
+
+	//To support non-monobehaviour coroutines being called:
+	public void StartChildCoroutine(IEnumerator coroutineMethod)
+	{
+		StartCoroutine(coroutineMethod);
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 	public void Win()
 	{

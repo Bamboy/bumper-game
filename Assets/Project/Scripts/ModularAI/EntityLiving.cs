@@ -9,9 +9,14 @@ namespace Excelsion.ModularAI
 		public EntityTaskManager tasks = new EntityTaskManager();
 		public EntitySenses senses;
 
-		public virtual void Start()
+		public override void Start()
 		{
-			//unit = GetComponent< Unit >();
+			base.Start();
+		}
+		public override void Update()
+		{
+			base.Update();
+			UpdateAI ();
 		}
 
 		/*
@@ -49,10 +54,7 @@ namespace Excelsion.ModularAI
 			//Jump
 
 		}
-		public virtual void Update()
-		{
-			UpdateAI ();
-		}
+
 
 	}
 }
