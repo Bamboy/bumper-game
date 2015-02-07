@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Excelsion.Units;
+using Excelsion.ModularAI;
 
 [RequireComponent( typeof(Rigidbody2D), typeof(Collider2D) )]
 public class Level : MonoBehaviour 
@@ -21,7 +21,7 @@ public class Level : MonoBehaviour
 	{
 		if( resetType == ResetType.Exit )
 		{
-			Unit outOfBoundsUnit = obj.GetComponent< Unit >();
+			Entity outOfBoundsUnit = obj.GetComponent< Entity >();
 			if( outOfBoundsUnit != null )
 			{
 				outOfBoundsUnit.OnOutOfBounds();
@@ -34,7 +34,7 @@ public class Level : MonoBehaviour
 	{
 		if( resetType == ResetType.Enter )
 		{
-			Unit outOfBoundsUnit = obj.GetComponent< Unit >();
+			Entity outOfBoundsUnit = obj.GetComponent< Entity >();
 			if( outOfBoundsUnit != null )
 			{
 				outOfBoundsUnit.OnOutOfBounds();
