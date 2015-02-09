@@ -7,11 +7,13 @@ namespace Excelsion.ModularAI
 	{
 		//public Unit unit;
 		public EntityTaskManager tasks = new EntityTaskManager();
+		public EntityTaskManager targeting = new EntityTaskManager();
 		public EntitySenses senses;
 
 		public override void Start()
 		{
 			base.Start();
+			AddType( "NPC" );
 		}
 		public override void Update()
 		{
@@ -36,14 +38,14 @@ namespace Excelsion.ModularAI
 			//checkdespawn
 
 			//sense
-			//
+			senses.ClearMemory();
 			//targetSelector
-
+			targeting.OnUpdateTasks();
 			//Goal selector
 			tasks.OnUpdateTasks();
 			//Navigation
 
-			//Mobtick
+			//AI tick
 
 			//Controls
 
@@ -55,6 +57,24 @@ namespace Excelsion.ModularAI
 
 		}
 
+		public EntitySenses GetSenses()
+		{
+			return senses;
+		}
+
+		protected Entity entityToAttack;
+		public void SetTarget( Entity newTarget )
+		{
+			this.entityToAttack = newTarget;
+		}
+		public Entity GetTarget()
+		{
+			return this.entityToAttack;
+		}
+		public float GetDistanceToTarget()
+		{
+			return Entity.GetDistance(this as Entity, entityToAttack);
+		}
 
 	}
 }

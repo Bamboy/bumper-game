@@ -25,7 +25,7 @@ namespace Excelsion.ModularAI
 		private List< TaskEntry > executingTasks = new List< TaskEntry >();
 
 		private int tickCount;
-		private int tickRate = 3; //How often we 'Tick'. Every 'tick' will make us evaluate possible new tasks.
+		private int tickRate = 10; //How often we 'Tick'. Every 'tick' will make us evaluate possible new tasks.
 
 		//Constructor
 		public EntityTaskManager() {}

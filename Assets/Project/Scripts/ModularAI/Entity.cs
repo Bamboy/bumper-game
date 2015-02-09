@@ -1,12 +1,50 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Excelsion.ModularAI
 {
 	[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 	public abstract class Entity : MonoBehaviour 
 	{
+		#region Statics
+		public static List< Entity > allEntities;
+		public static bool AddEntity( Entity newEnt ) //Adds the entity. Returns true if successful, otherwise false.
+		{
+			if( allEntities == null )
+				allEntities = new List< Entity >();
+			else if( newEnt == null )
+				return false;
+			else if( allEntities.Contains( newEnt ) )
+				return false;
+
+			allEntities.Add( newEnt );
+			return true;
+		}
+		protected static void RemoveEntity( Entity oldEnt, bool deleteObject ) //Delete the Entity (And its gameobject) from the world.
+		{
+			if( allEntities == null || oldEnt == null )
+				return;
+			allEntities.Remove( oldEnt );
+			if( deleteObject == true )
+				GameObject.Destroy( oldEnt.gameObject );
+		}
+
+
+
+
+
+		#endregion
 		public Stats stats;
+
+		//Used for type-specific targeting.
+		protected List<string> types = new List<string>();
+		public void AddType( string type ) { types.Add( type ); }
+		public bool IsType( string type ) { return types.Contains( type ); }
+		public List<string> GetTypes() { return types; }
+
+
+
 		//public bool onGround;
 
 		//public bool isDead;
@@ -14,7 +52,7 @@ namespace Excelsion.ModularAI
 		//public void SetDead(){ isDead = true; }
 		//public bool isAlive(){ return !isDead; }
 		private bool invulnerable;
-		//public bool IsInvulnerable(){ return invulnerable; }
+		public bool IsInvulnerable(){ return invulnerable; }
 
 		protected Damage lastDamage;
 		protected virtual void SetBeenAttacked(){  }
@@ -98,9 +136,12 @@ namespace Excelsion.ModularAI
 
 		public virtual void Start()
 		{
+			Entity.AddEntity( this );
+			AddType( "Any" );
 			stats = new Stats();
 			defaultDrag = rigidbody2D.drag;
 			defaultMass = rigidbody2D.mass;
+
 		}
 
 		public virtual void Update()
@@ -110,9 +151,17 @@ namespace Excelsion.ModularAI
 			inputVelocity = Vector2.zero;
 		}
 
-
+		public virtual void OnDestroy()
+		{
+			Entity.RemoveEntity( this, false );
+		}
 
 		//Called by Level when this unit goes off of the playing field. (When the unit falls into a pit.)
 		public virtual void OnOutOfBounds(){ return; }
+
+
+		//Misc static stuff
+		public static float GetDistance(Entity a, Entity b){ return Vector2.Distance(new Vector2(a.transform.position.x, a.transform.position.y),
+			                                                                         new Vector2(b.transform.position.x, b.transform.position.y)); }
 	}
 }

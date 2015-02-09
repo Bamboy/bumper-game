@@ -5,7 +5,7 @@ using Excelsion.ModularAI;
 
 namespace Excelsion.AI
 {
-	public class TestBuddy : EntityCreature 
+	public class TestIdler : EntityCreature 
 	{
 		public override void Start () 
 		{
@@ -15,28 +15,24 @@ namespace Excelsion.AI
 			senses = new EntitySenses( el, 3.0f );
 
 			tasks = new EntityTaskManager();
-			tasks.AddTask( 1, new TaskRunAroundLikeCrazy( el ));
-			tasks.AddTask( 2, new TaskChaseTarget( el ));
-
+			//tasks.AddTask( 1, new TaskRunAroundLikeCrazy( el ));
+			//tasks.AddTask( 2, new TaskChasePlayer( el ));
 			targeting = new EntityTaskManager();
-			targeting.AddTask( 1, new TaskAITargetNearest(el, true, false, "Player", 50));
 
 
 
-			AddType( "Hostile" );
-			AddType( "TestBuddy" );
+			AddType( "Passive" );
+			AddType( "TestIdler" );
 		}
-
+		
 		public override void Update () 
 		{
 			base.Update();
-			//Debug.Log("Target: "+ GetTarget().name +", Entity Count: "+ Entity.allEntities.Count );
 		}
-
+		
 		public override void OnOutOfBounds()
 		{
-			transform.position = Vector3.zero;
-			rigidbody2D.velocity = Vector2.zero;
+			GameObject.Destroy( this.gameObject );
 		}
 	}
 }
